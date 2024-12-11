@@ -9,7 +9,7 @@ _linuxprefix=linux66
 pkgname=("${_linuxprefix}-virtualbox-host-modules")
 pkgver=7.1.4
 _pkgver="${pkgver}_OSE"
-pkgrel=10
+pkgrel=11
 pkgdesc='Virtualbox host kernel modules for Manjaro Kernel'
 arch=('x86_64')
 url='http://virtualbox.org'
@@ -31,7 +31,7 @@ package() {
   _kernver="$(cat /usr/src/${_linuxprefix}/version)"
 
   cd "vboxhost/${pkgver}_OSE/${_kernver}/$CARCH/module"
-  install -Dm 644 * -t "$pkgdir/usr/lib/modules/${_kernver}/extramodules/"
+  install -Dm 644 *.ko* -t "$pkgdir/usr/lib/modules/${_kernver}/extramodules/"
 
   # compress each module individually
   find "${pkgdir}" -name '*.ko' -exec zstd --rm -19 {} +
